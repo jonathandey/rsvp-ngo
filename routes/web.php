@@ -11,6 +11,8 @@ Route::get('event/{event:public_key}/ical', function (\App\Models\Event $event) 
         $url = $event->getHostUrl();
     }
 
+    $icalEvent->url($url);
+
     $description = $url;
 
     if ($event->description) {
@@ -26,7 +28,10 @@ Route::get('event/{event:public_key}/ical', function (\App\Models\Event $event) 
 
     $icalEvent->description($description);
 
-    $cal = \Spatie\IcalendarGenerator\Components\Calendar::create($event->name)->event($icalEvent);
+    $cal = \Spatie\IcalendarGenerator\Components\Calendar::create($event->name)
+        ->refreshInterval(60)
+        ->appendProperty('GENERATOR', 'www.rsvp.ngo')
+        ->event($icalEvent);
 
     $tmpFilename = tempnam(sys_get_temp_dir(), 'rsvp');
     file_put_contents($tmpFilename, $cal->toString());

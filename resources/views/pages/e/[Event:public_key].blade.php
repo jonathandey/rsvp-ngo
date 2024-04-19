@@ -72,7 +72,7 @@ $notGoing = function () {
                     <input type="hidden" name="event_key" wire:model="form.eventPublicKey">
                 </form>
                 @else
-                    <h3 style="text-align: center">{{ $form->message }}</h3>
+                    <x-markdown>{{ $form->message }}</x-markdown>
                 @endif
                 <div>
                     <div>

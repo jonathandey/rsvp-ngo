@@ -40,7 +40,7 @@ class Rsvp extends Form
         $this->going[] = $rsvp;
 
         $this->submitted = true;
-        $this->message = "You're going to " . $event->name ."!";
+        $this->message = "### You're going to " . $event->name ."!\n\nDon't forget to add it to your calender using the link above.";
 
 
         $this->reset('name');
@@ -63,7 +63,7 @@ class Rsvp extends Form
         $this->notGoing[] = $rsvp;
 
         $this->submitted = true;
-        $this->message = "Thanks! Maybe next time...";
+        $this->message = "### Thanks! Maybe next time...";
 
         $this->reset('name');
     }
