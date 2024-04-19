@@ -40,7 +40,11 @@ class Rsvp extends Form
         $this->going[] = $rsvp;
 
         $this->submitted = true;
-        $this->message = "### You're going to " . $event->name ."!\n\nDon't forget to add it to your calender using the link above.";
+        $this->message = "### You're going to " . $event->name ."!";
+
+        if ($event->hasStartDayTime()) {
+            $this->message = "\n\nDon't forget to [add it to your calender](" . route('event.ical', ['event' => $event->public_key]) . ").";
+        }
 
 
         $this->reset('name');
