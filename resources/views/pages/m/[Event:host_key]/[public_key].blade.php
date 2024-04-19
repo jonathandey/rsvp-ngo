@@ -75,6 +75,7 @@ $save = function () {
                     <label for="event-description">Description</label>
                     <textarea id="event-description" wire:model="form.description" placeholder="RSVP by, Google Maps link, etc."></textarea>
                     @error('form.description') <span class="error" style="color: darkred">{{ $message }}</span> @enderror
+                    <p style="font-size: 11px">Markdown supported for the Description field.</p>
                 </div>
                 <div>
                     <button type="submit">Save</button>
