@@ -37,7 +37,7 @@ $notGoing = function () {
             @endif
             @if($event->description)
             <div>
-                {{ nl2br($event->description) }}
+                <x-markdown>{{ $event->description }}</x-markdown>
             </div>
             @endif
         </div>

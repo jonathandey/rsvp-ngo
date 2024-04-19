@@ -12,7 +12,8 @@
         "livewire/livewire": "^3.4",
         "livewire/volt": "^1.0",
         "ryangjchandler/laravel-cloudflare-turnstile": "^1.1",
-        "spatie/icalendar-generator": "^2.6"
+        "spatie/icalendar-generator": "^2.6",
+        "spatie/laravel-markdown": "^2.5"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
