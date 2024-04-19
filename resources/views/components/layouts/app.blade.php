@@ -10,6 +10,20 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/gridlex/2.7.1/gridlex.min.css">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/tippy.js@6.3.7/dist/tippy.min.css">
     @livewireStyles
+    <style>
+        input[type="date"]:before,
+        input[type="time"]:before{
+            content: attr(placeholder) !important;
+            color: #aaa;
+            margin-right: 0.5em;
+        }
+        input[type="date"]:focus:before,
+        input[type="date"]:valid:before,
+        input[type="time"]:focus:before,
+        input[type="time"]:valid:before {
+            content: "";
+        }
+    </style>
     @turnstileScripts()
 </head>
 <body>

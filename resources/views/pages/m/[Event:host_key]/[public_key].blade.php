@@ -56,12 +56,12 @@ $save = function () {
                     <div class="grid">
                         <div class="col">
                             <label for="start-day">Starts from:</label>
-                            <input type="date" id="start-day" name="start_day" wire:model="form.startDay" min="{{ now()->format('Y-m-d') }}" />
+                            <input type="date" id="start-day" name="start_day" placeholder="Set a Date" wire:model="form.startDay" min="{{ now()->format('Y-m-d') }}" />
                             @error('form.startDay') <span class="error" style="color: darkred">{{ $message }}</span> @enderror
                         </div>
                         <div class="col">
                             <label for="start-time">&nbsp;</label>
-                            <input type="time" id="start-time" wire:model="form.startTime" name="start_time" />
+                            <input type="time" id="start-time" placeholder="Set a Time" wire:model="form.startTime" name="start_time" />
                             @error('form.startTime') <span class="error" style="color: darkred">{{ $message }}</span> @enderror
                         </div>
                         <div class="col">
@@ -85,18 +85,18 @@ $save = function () {
         @script
         <script>
             Livewire.hook('component.init', ({ component, cleanup }) => {
-                var today = new Date();
-                var HH = String(today.getHours()).padStart(2, '0');
-                var dd = String(today.getDate()).padStart(2, '0');
-                var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-                var yyyy = today.getFullYear();
-
-                if (! component.$wire.form.startDay) {
-                    component.$wire.form.startDay = yyyy + '-' + mm + '-' + dd;
-                }
-                if (! component.$wire.form.startTime) {
-                    component.$wire.form.startTime = HH + ":" + "00";
-                }
+                // var today = new Date();
+                // var HH = String(today.getHours()).padStart(2, '0');
+                // var dd = String(today.getDate()).padStart(2, '0');
+                // var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                // var yyyy = today.getFullYear();
+                //
+                // if (! component.$wire.form.startDay) {
+                //     component.$wire.form.startDay = yyyy + '-' + mm + '-' + dd;
+                // }
+                // if (! component.$wire.form.startTime) {
+                //     component.$wire.form.startTime = HH + ":" + "00";
+                // }
             })
         </script>
         @endscript
