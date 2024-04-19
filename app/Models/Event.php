@@ -114,4 +114,9 @@ class Event extends Model
     {
         return $this->startDateTime()->diffInHours($this->endDateTime());
     }
+
+    public function ended(): bool
+    {
+        return $this->endDateTime()->isPast();
+    }
 }

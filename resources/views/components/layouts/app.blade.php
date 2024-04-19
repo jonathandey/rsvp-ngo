@@ -14,7 +14,7 @@
         input[type="date"]:before,
         input[type="time"]:before{
             content: attr(placeholder) !important;
-            color: #aaa;
+            color: #949494;
             margin-right: 0.5em;
         }
         input[type="date"]:focus:before,

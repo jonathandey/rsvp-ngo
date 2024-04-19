@@ -4,6 +4,7 @@ namespace App\Livewire\Forms;
 
 use App\Models\Event;
 use App\Models\Rsvp as RsvpModel;
+use Livewire\Attributes\Locked;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -23,11 +24,19 @@ class Rsvp extends Form
 
     public $message = '';
 
+    #[Locked]
+    public $eventEnded = false;
+
     public function going(): void
     {
         $this->validate();
 
         $event = Event::wherePublicKey($this->eventPublicKey)->first();
+
+        if ($event->ended()) {
+            $this->reset('name');
+            return;
+        }
 
         $rsvp = $event->rsvps()->make(
             [

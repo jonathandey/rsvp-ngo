@@ -17,6 +17,8 @@ $notGoing = function () {
     $this->form->going = $event->rsvps()->whereGoing()->get();
     $this->form->notGoing = $event->rsvps()->whereNotGoing()->get();
     $this->form->submitted = false;
+
+    $this->form->eventEnded = $event->ended();
 });
 
 \Laravel\Folio\render(function (\Illuminate\View\View $view, \App\Models\Event $event) {
@@ -29,7 +31,9 @@ $notGoing = function () {
     <div>
         <div>
             <h1>{{ $event->name }}</h1>
-            @if($event->hasStartDayTime())
+            @if($event->ended())
+                <h4 style="color: orangered;">This event was in the past and is now concluded.</h4>
+            @elseif($event->hasStartDayTime())
                 <p>
                     From <time datetime="{{ $event->startDateTime()->format('H:i') }}">{{ $event->startDateTime()->format('H:i') }}</time> on the <time datetime="{{ $event->startDateTime()->format('Y-m-d') }}">{{ $event->startDateTime()->format('jS M y') }}</time> for about <time datetime="PT{{ $event->durationInHours() }}H00M">{{ $event->durationInHours() }} hours</time>
                     &bull; <a href="{{ route('event.ical', ['event' => $event->public_key]) }}">Add to your Calendar</a>
@@ -57,16 +61,16 @@ $notGoing = function () {
                             <label for="guest-name" style="font-size: 24px">My name is...</label>
                         </div>
                         <div class="col-12">
-                            <input type="text" id="guest-name" name="name" wire:model="form.name" style="width: 50%" placeholder="John Smith">
+                            <input type="text" id="guest-name" name="name" wire:model="form.name" style="width: 50%" placeholder="John Smith"@if($form->eventEnded) disabled="disabled"@endif>
                             @error('form.name') <span class="error" style="color: darkred">{{ $message }}</span> @enderror
                         </div>
                     </div>
                     <div class="grid-2_xs-1">
                         <div class="col">
-                            <button type="button" wire:click.prevent="going">and I am going</button>
+                            <button type="button" wire:click.prevent="going"@if(! $form->name) disabled="disabled"@endif>and I am going</button>
                         </div>
                         <div class="col">
-                            <button type="button" wire:click.prevent="notGoing">and I am NOT going</button>
+                            <button type="button" wire:click.prevent="notGoing"@if(! $form->name) disabled="disabled"@endif>and I am NOT going</button>
                         </div>
                     </div>
                     <input type="hidden" name="event_key" wire:model="form.eventPublicKey">
