@@ -67,10 +67,10 @@ $notGoing = function () {
                     </div>
                     <div class="grid-2_xs-1">
                         <div class="col">
-                            <button type="button" wire:click.prevent="going"@if(! $form->name) disabled="disabled"@endif>and I am going</button>
+                            <button type="button" wire:click.prevent="going"@if($form->eventEnded) disabled="disabled"@endif>and I am going</button>
                         </div>
                         <div class="col">
-                            <button type="button" wire:click.prevent="notGoing"@if(! $form->name) disabled="disabled"@endif>and I am NOT going</button>
+                            <button type="button" wire:click.prevent="notGoing"@if($form->eventEnded) disabled="disabled"@endif>and I am NOT going</button>
                         </div>
                     </div>
                     <input type="hidden" name="event_key" wire:model="form.eventPublicKey">

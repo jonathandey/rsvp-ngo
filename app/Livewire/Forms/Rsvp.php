@@ -11,7 +11,7 @@ use Livewire\Form;
 class Rsvp extends Form
 {
     #[Validate('required|max:512|min:2')]
-    public $name = '';
+    public $name;
 
     #[Validate('required|exists:events,public_key')]
     public $eventPublicKey = '';
