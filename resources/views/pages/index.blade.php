@@ -12,6 +12,13 @@ $save = function () {
 ?>
 
 <x-layouts.app>
+    <p>
+        RSVPnGo is a free to use event RSVP app. There are <strong><em>no signups required</em></strong>. <br>
+        As an event host, you can manage your event and send an invite link out via WhatsApp or SMS.
+    </p>
+    <p>
+        To start give your event a name...
+    </p>
     @volt
     <div>
         <form wire:submit="save">
