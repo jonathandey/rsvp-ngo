@@ -42,7 +42,6 @@
 <script src="//cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
 <script src="//unpkg.com/@popperjs/core@2"></script>
 <script src="//unpkg.com/tippy.js@6"></script>
-<script src="//cdn.jsdelivr.net/npm/notistack@3.0.1/index.min.js"></script>
 <script>
     var clipboard = new ClipboardJS('.copy-btn');
 
