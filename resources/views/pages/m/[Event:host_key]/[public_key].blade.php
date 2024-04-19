@@ -79,6 +79,21 @@ $save = function () {
                 </div>
             </form>
         </div>
+        @script
+        <script>
+            Livewire.hook('component.init', ({ component, cleanup }) => {
+                var today = new Date();
+                var HH = String(today.getHours()).padStart(2, '0');
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                var yyyy = today.getFullYear();
+
+                today = mm + '/' + dd + '/' + yyyy;
+                component.$wire.form.startDay = yyyy + '-' + mm + '-' + dd;
+                component.$wire.form.startTime = HH + ":" + "00";
+            })
+        </script>
+        @endscript
         @endvolt
         <div>
             <label>This is your private event management link - you can get back to this page any time using this link:</label>
