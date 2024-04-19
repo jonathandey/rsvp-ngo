@@ -11,6 +11,14 @@ $save = function () {
     $event = request()->route()->parameter('event');
     $this->form->name = $event->name;
     $this->form->description = $event->description;
+    $this->form->setEvent($event);
+
+    if ($event->hasStartDayTime()) {
+        $this->form->startDay = $event->start_day->format('Y-m-d');
+        $this->form->startTime = $event->start_time->format('H:i');
+
+        $this->form->eventDuration = $event->durationInHours();
+    }
 
     $this->form->eventId = $event->getKey();
 });
@@ -34,10 +42,33 @@ $save = function () {
             <form wire:submit="save">
                 <div>
                     <label for="event-name">Name</label>
-                    <input name="name" id="event-name" wire:model="form.name">
+                    <input name="name" id="event-name" wire:model="form.name" autocomplete="false" required>
                     @error('form.name') <span class="error" style="color: darkred">{{ $message }}</span> @enderror
+                    @if($form->event->hasStartDayTime())
+                        <p>
+                            <a href="{{ route('event.ical', ['event' => $form->event->public_key]) }}">Add to your Calendar</a>
+                        </p>
+                    @endif
                 </div>
-                
+                <div>
+                    <div class="grid">
+                        <div class="col">
+                            <label for="start-day">Starts from:</label>
+                            <input type="date" id="start-day" name="start_day" wire:model="form.startDay" min="{{ now()->format('Y-m-d') }}" />
+                            @error('form.startDay') <span class="error" style="color: darkred">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="col">
+                            <label for="start-time">&nbsp;</label>
+                            <input type="time" id="start-time" wire:model="form.startTime" name="start_time" />
+                            @error('form.startTime') <span class="error" style="color: darkred">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="col">
+                            <label for="event-duration">Duration (hours)</label>
+                            <input type="text" wire:model="form.eventDuration" id="event-duration">
+                            @error('form.eventDuration') <span class="error" style="color: darkred">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+                </div>
                 <div>
                     <label for="event-description">Description</label>
                     <textarea id="event-description" wire:model="form.description"></textarea>

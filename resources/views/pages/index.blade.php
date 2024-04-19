@@ -23,11 +23,26 @@ $save = function () {
                     <input type="text" name="name" wire:model="form.name">
                     @error('form.name') <span class="error" style="color: darkred">{{ $message }}</span> @enderror
                 </div>
+                <input type="hidden" id="timeZoneInput" name="time_zone" wire:model="form.timeZone">
+                @error('form.timeZone') <span class="error" style="color: darkred">{{ $message }}</span> @enderror
             </div>
             <div>
                 <button type="submit">Start Inviting &gt;</button>
             </div>
         </form>
     </div>
+    @script
+    <script>
+        document.addEventListener('livewire:init', function () {
+
+        })
+
+        Livewire.hook('component.init', ({ component, cleanup }) => {
+            console.log()
+            component.$wire.form.timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        })
+        document.getElementById('timeZoneInput').value = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    </script>
+    @endscript
     @endvolt
 </x-layouts.app>

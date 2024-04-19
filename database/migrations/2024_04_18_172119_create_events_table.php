@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('start_time')->nullable();
             $table->date('end_day')->nullable();
             $table->string('end_time')->nullable();
+            $table->string('time_zone');
             $table->timestamps();
             $table->softDeletes();
 
