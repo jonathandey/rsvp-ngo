@@ -35,7 +35,7 @@ $save = function () {
             </div>
             <x-turnstile wire:model="form.captcha" />
             <div>
-                <button type="submit">Start Inviting &gt;</button>
+                <button type="submit"@if(! $form->name && ! $form->captcha) disabled="disabled"@endif>Start Inviting &gt;</button>
             </div>
         </form>
     </div>
