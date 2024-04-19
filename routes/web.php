@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('event/{event:public_key}/ical', function (\App\Models\Event $event) {
-    $icalEvent = \Spatie\IcalendarGenerator\Components\Event::create($event->name);
+    $icalEvent = \Spatie\IcalendarGenerator\Components\Event::create($event->name)
+    ->uniqueIdentifier('-//RSVPnGO//CalGen v1.0//EN');
 
     $url = $event->getPublicUrl();
 
@@ -11,7 +12,9 @@ Route::get('event/{event:public_key}/ical', function (\App\Models\Event $event) 
         $url = $event->getHostUrl();
     }
 
-    $icalEvent->url($url);
+    $icalEvent->url(
+        route('event.ical', ['event' => $event->public_key])
+    );
 
     $description = $url;
 
@@ -30,7 +33,6 @@ Route::get('event/{event:public_key}/ical', function (\App\Models\Event $event) 
 
     $cal = \Spatie\IcalendarGenerator\Components\Calendar::create($event->name)
         ->refreshInterval(60)
-        ->appendProperty('GENERATOR', 'www.rsvp.ngo')
         ->event($icalEvent);
 
     $tmpFilename = tempnam(sys_get_temp_dir(), 'rsvp');
