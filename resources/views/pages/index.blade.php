@@ -25,7 +25,7 @@ $save = function () {
                 </div>
             </div>
             <div>
-                <button type="submit">Create Invites &gt;</button>
+                <button type="submit">Start Inviting &gt;</button>
             </div>
         </form>
     </div>

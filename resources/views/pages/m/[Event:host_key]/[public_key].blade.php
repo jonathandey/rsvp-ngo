@@ -37,6 +37,7 @@ $save = function () {
                     <input name="name" id="event-name" wire:model="form.name">
                     @error('form.name') <span class="error" style="color: darkred">{{ $message }}</span> @enderror
                 </div>
+                
                 <div>
                     <label for="event-description">Description</label>
                     <textarea id="event-description" wire:model="form.description"></textarea>
@@ -48,16 +49,23 @@ $save = function () {
             </form>
         </div>
         @endvolt
+        <div>
+            <label>This is your private event management link - you can get back to this page any time using this link:</label>
+            <div>
+                <input id="host-url" type="text" value="{{ $privateUrl }}" style="display: inline-block">
+                <button class="copy-btn" data-clipboard-target="#host-url">Copy host link</button>
+            </div>
+        </div>
     </div>
     <div>
         <hr>
+        <h2>Shareables</h2>
         <div>
             <label>This is your public invitation link - share this with your guests:</label>
-            <input id="public-url" type="text" value="{{ $publicUrl }}"> <button class="btn" data-clipboard-text="{{ $publicUrl }}">[copy]</button>
-        </div>
-        <div>
-            <label>This is your private event management link - save this to update event details and view responses:</label>
-            <input type="text" value="{{ $privateUrl }}"> <span class="clipboard-copy">[copy]</span>
+            <div>
+                <input id="public-url" type="text" value="{{ $publicUrl }}" style="display: inline-block">
+                <button class="copy-btn" data-clipboard-target="#public-url">Copy public link</button>
+            </div>
         </div>
         <hr>
     </div>
@@ -66,8 +74,10 @@ $save = function () {
             <details open>
                 <summary>Going  ({{ $going->count() }})</summary>
                 <ul>
-                    @foreach($going as $attendee)
-                        <li wire:key="{{ $attendee->getKey() }}">{{ $attendee->name }}</li>
+                    @foreach($going as $rsvp)
+                        <li wire:key="{{ $rsvp->getKey() }}">
+                            {{ $rsvp->name }} <em style="font-size: 11px">(Responded on {{ $rsvp->created_at->format('jS M y - H:i') }})</em>
+                        </li>
                     @endforeach
                 </ul>
             </details>
@@ -76,8 +86,10 @@ $save = function () {
             <details>
                 <summary>Not Going ({{ $notGoing->count() }})</summary>
                 <ul>
-                    @foreach($notGoing as $invitee)
-                        <li wire:key="{{ $attendee->getKey() }}">{{ $invitee->name }}</li>
+                    @foreach($notGoing as $rsvp)
+                        <li wire:key="{{ $rsvp->getKey() }}">
+                            {{ $rsvp->name }} <em style="font-size: 11px">(Responded on {{ $rsvp->created_at->format('jS M y - H:i') }})</em>
+                        </li>
                     @endforeach
                 </ul>
             </details>

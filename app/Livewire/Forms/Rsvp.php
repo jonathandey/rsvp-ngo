@@ -19,6 +19,10 @@ class Rsvp extends Form
 
     public $notGoing = [];
 
+    public $submitted = false;
+
+    public $message = '';
+
     public function going(): void
     {
         $this->validate();
@@ -34,6 +38,9 @@ class Rsvp extends Form
         $rsvp->amGoing()->save();
 
         $this->going[] = $rsvp;
+
+        $this->submitted = true;
+        $this->message = "You're going to " . $event->name ."!";
 
 
         $this->reset('name');
@@ -52,6 +59,11 @@ class Rsvp extends Form
         );
 
         $rsvp->amNotGoing()->save();
+
+        $this->notGoing[] = $rsvp;
+
+        $this->submitted = true;
+        $this->message = "Thanks! Maybe next time...";
 
         $this->reset('name');
     }

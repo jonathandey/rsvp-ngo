@@ -16,6 +16,7 @@ $notGoing = function () {
     $this->form->eventPublicKey = $event->public_key;
     $this->form->going = $event->rsvps()->whereGoing()->get();
     $this->form->notGoing = $event->rsvps()->whereNotGoing()->get();
+    $this->form->submitted = false;
 });
 
 \Laravel\Folio\render(function (\Illuminate\View\View $view, \App\Models\Event $event) {
@@ -28,14 +29,20 @@ $notGoing = function () {
         <div>
             <h1>{{ $event->name }}</h1>
             @if($event->description)
-            <div style="white-space: pre-wrap">
+            <div>
                 {{ nl2br($event->description) }}
             </div>
             @endif
         </div>
         <div>
+            <hr>
+            <h2>RSVP</h2>
             @volt
             <div>
+                @if(! $form->submitted)
+                <div wire:loading>
+                    Sending your RSVP...
+                </div>
                 <form>
                     @error('form.eventPublicKey') <span class="error" style="color: darkred">{{ $message }}</span> @enderror
                     <div class="grid-center grid">
@@ -57,6 +64,9 @@ $notGoing = function () {
                     </div>
                     <input type="hidden" name="event_key" wire:model="form.eventPublicKey">
                 </form>
+                @else
+                    <h3 style="text-align: center">{{ $form->message }}</h3>
+                @endif
                 <div>
                     <div>
                         <details open>
@@ -73,7 +83,7 @@ $notGoing = function () {
                             <summary>Not Going ({{ $form->notGoing->count() }})</summary>
                             <ul>
                                 @foreach($form->notGoing as $invitee)
-                                    <li wire:key="{{ $attendee->getKey() }}">{{ $invitee->name }}</li>
+                                    <li wire:key="{{ $invitee->getKey() }}">{{ $invitee->name }}</li>
                                 @endforeach
                             </ul>
                         </details>

@@ -17,8 +17,10 @@ return new class extends Migration
             $table->string('public_key');
             $table->string('name');
             $table->text('description')->nullable();
-            $table->date('day')->nullable();
-            $table->string('time')->nullable();
+            $table->date('start_day')->nullable();
+            $table->string('start_time')->nullable();
+            $table->date('end_day')->nullable();
+            $table->string('end_time')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
