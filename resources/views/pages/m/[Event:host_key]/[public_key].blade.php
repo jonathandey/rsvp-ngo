@@ -88,9 +88,12 @@ $save = function () {
                 var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
                 var yyyy = today.getFullYear();
 
-                today = mm + '/' + dd + '/' + yyyy;
-                component.$wire.form.startDay = yyyy + '-' + mm + '-' + dd;
-                component.$wire.form.startTime = HH + ":" + "00";
+                if (! component.$wire.form.startDay) {
+                    component.$wire.form.startDay = yyyy + '-' + mm + '-' + dd;
+                }
+                if (! component.$wire.form.startTime) {
+                    component.$wire.form.startTime = HH + ":" + "00";
+                }
             })
         </script>
         @endscript
