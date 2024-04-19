@@ -1,6 +1,8 @@
 <?php
 use function Livewire\Volt\{form};
 
+\Laravel\Folio\middleware(\App\Http\Middleware\HostKeyPublicKeyMatch::class);
+
 form(\App\Livewire\Forms\EditEvent::class);
 
 $save = function () {
