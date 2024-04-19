@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Event;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -14,9 +15,15 @@ class CreateEvent extends Form
     #[Validate('required|timezone:all')]
     public $timeZone = 'UTC';
 
+    public $captcha;
+
     public function store()
     {
-        $this->validate();
+        $this->validate(
+            [
+                'captcha' => ['required', Rule::turnstile()],
+            ]
+        );
 
         $event = Event::create(
             [

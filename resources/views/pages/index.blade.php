@@ -26,6 +26,7 @@ $save = function () {
                 <input type="hidden" id="timeZoneInput" name="time_zone" wire:model="form.timeZone">
                 @error('form.timeZone') <span class="error" style="color: darkred">{{ $message }}</span> @enderror
             </div>
+            <x-turnstile wire:model="form.captcha" />
             <div>
                 <button type="submit">Start Inviting &gt;</button>
             </div>
