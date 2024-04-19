@@ -33,15 +33,9 @@ $save = function () {
     </div>
     @script
     <script>
-        document.addEventListener('livewire:init', function () {
-
-        })
-
         Livewire.hook('component.init', ({ component, cleanup }) => {
-            console.log()
             component.$wire.form.timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
         })
-        document.getElementById('timeZoneInput').value = Intl.DateTimeFormat().resolvedOptions().timeZone;
     </script>
     @endscript
     @endvolt

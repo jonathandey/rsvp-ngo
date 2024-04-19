@@ -31,7 +31,7 @@ $notGoing = function () {
             <h1>{{ $event->name }}</h1>
             @if($event->hasStartDayTime())
                 <p>
-                    From <time datetime="{{ $event->startDateTime()->format('H:i') }}">{{ $event->startDateTime()->format('H:i') }}</time> on the <time datetime="{{ $event->startDateTime()->format('Y-m-d') }}">{{ $event->startDateTime()->format('jS M y') }}</time> for about <time datetime="{{ $event->endDateTime()->format('Y-m-d H:i') }}">{{ $event->durationInHours() }} hours</time>
+                    From <time datetime="{{ $event->startDateTime()->format('H:i') }}">{{ $event->startDateTime()->format('H:i') }}</time> on the <time datetime="{{ $event->startDateTime()->format('Y-m-d') }}">{{ $event->startDateTime()->format('jS M y') }}</time> for about <time datetime="PT{{ $event->durationInHours() }}H00M">{{ $event->durationInHours() }} hours</time>
                     &bull; <a href="{{ route('event.ical', ['event' => $event->public_key]) }}">Add to your Calendar</a>
                 </p>
             @endif

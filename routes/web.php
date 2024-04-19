@@ -5,7 +5,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('event/{event:public_key}/ical', function (\App\Models\Event $event) {
     $icalEvent = \Spatie\IcalendarGenerator\Components\Event::create($event->name);
 
-    $description = $event->getPublicUrl();
+    $url = $event->getPublicUrl();
+
+    if (request()->query('host_key') && request()->query('host_key') === $event->host_key) {
+        $url = $event->getHostUrl();
+    }
+
+    $description = $url;
 
     if ($event->description) {
         $description = $event->description . "\n\n" . $description;
@@ -27,18 +33,10 @@ Route::get('event/{event:public_key}/ical', function (\App\Models\Event $event) 
 
     return response()->file(
         $tmpFilename,
-    [
-        'content-type' => 'text/Calendar',
-    ]
+        [
+            'content-type' => 'text/Calendar',
+        ]
     );
-   // return new \Illuminate\Http\Response(
-   //     ,
-   //     200,
-   //     [
-   //         'content-type' => 'text/Calendar',
-   //         'Content-Disposition' => 'download; filename=calendar.ics',
-   //     ]
-   // );
 
 })->name('event.ical');
 

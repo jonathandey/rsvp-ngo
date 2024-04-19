@@ -46,7 +46,7 @@ $save = function () {
                     @error('form.name') <span class="error" style="color: darkred">{{ $message }}</span> @enderror
                     @if($form->event->hasStartDayTime())
                         <p>
-                            <a href="{{ route('event.ical', ['event' => $form->event->public_key]) }}">Add to your Calendar</a>
+                            <a href="{{ route('event.ical', ['event' => $form->event->public_key]) }}?host_key={{ $form->event->host_key }}">Add to your Calendar</a>
                         </p>
                     @endif
                 </div>
@@ -71,7 +71,7 @@ $save = function () {
                 </div>
                 <div>
                     <label for="event-description">Description</label>
-                    <textarea id="event-description" wire:model="form.description"></textarea>
+                    <textarea id="event-description" wire:model="form.description" placeholder="RSVP by, Google Maps link, etc."></textarea>
                     @error('form.description') <span class="error" style="color: darkred">{{ $message }}</span> @enderror
                 </div>
                 <div>

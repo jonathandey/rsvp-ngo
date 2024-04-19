@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/gridlex/2.7.1/gridlex.min.css">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/tippy.js@6.3.7/dist/tippy.min.css">
     @livewireStyles
+    @turnstileScripts()
 </head>
 <body>
 <nav>

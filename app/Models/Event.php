@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\CarbonInterface;
 use Carbon\Exceptions\InvalidFormatException;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -51,30 +52,20 @@ class Event extends Model
         $query->where('public_key', $publicKey);
     }
 
-    public function getStartDayAttribute(): ?CarbonInterface
+    protected function startDay(): Attribute
     {
-        if (! $this->attributes['start_day']) {
-            return null;
-        }
-
-        try {
-            return Carbon::createFromFormat('Y-m-d H:i:s', $this->attributes['start_day'], new \DateTimeZone($this->time_zone));
-        } catch (InvalidFormatException $e) {
-            return Carbon::createFromFormat('Y-m-d', $this->attributes['start_day'], new \DateTimeZone($this->time_zone));
-        }
+        return Attribute::make(
+            get: fn ($value) => $value ? Carbon::parse($value, new \DateTimeZone($this->time_zone)) : null,
+            set: fn ($value) => Carbon::parse($value)->startOfDay()->format('Y-m-d H:i:s')
+        );
     }
 
-    public function getEndDayAttribute(): ?CarbonInterface
+    protected function endDay(): Attribute
     {
-        if (! $this->attributes['end_day']) {
-            return null;
-        }
-
-        try {
-            return Carbon::createFromFormat('Y-m-d H:i:s', $this->attributes['end_day'], new \DateTimeZone($this->time_zone));
-        } catch (InvalidFormatException $e) {
-            return Carbon::createFromFormat('Y-m-d', $this->attributes['end_day'], new \DateTimeZone($this->time_zone));
-        }
+        return Attribute::make(
+            get: fn ($value) => $value ? Carbon::parse($value, new \DateTimeZone($this->time_zone)) : null,
+            set: fn ($value) => Carbon::parse($value)->startOfDay()->format('Y-m-d H:i:s')
+        );
     }
 
     public function getPublicUrl(): string
