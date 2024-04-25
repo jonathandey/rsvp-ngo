@@ -133,7 +133,7 @@ $event = request()->route()->parameter('event');
                 <label>This is your private event management link - you can get back to this page any time using this link:</label>
                 <div>
                     <input id="host-url" type="text" value="{{ preg_replace("/https?:\/\//", '', $privateUrl) }}" style="display: inline-block">
-                    <button class="copy-btn" data-clipboard-target="#host-url">Copy host link</button>
+                    <button class="copy-btn" data-clipboard-text="{{ $privateUrl }}">Copy host link</button>
                 </div>
             </div>
         </div>
@@ -145,7 +145,7 @@ $event = request()->route()->parameter('event');
                     <label>This is your public invitation link.<br>Share this with your guests:</label>
                     <div>
                         <input id="public-url" type="text" value="{{ preg_replace("/https?:\/\//", '', $publicUrl) }}">
-                        <button class="copy-btn" data-clipboard-target="#public-url">Copy invite link</button>
+                        <button class="copy-btn" data-clipboard-text="{{ $publicUrl }}">Copy invite link</button>
                     </div>
                 </div>
                 <div class="col">
