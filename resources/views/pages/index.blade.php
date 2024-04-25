@@ -14,10 +14,21 @@ $save = function () {
 <x-layouts.app>
     <p>
         RSVPnGo is a <strong>free</strong> to use event RSVP app. There are <strong><em>no signups required</em></strong>. <br>
-        As an event host, you can manage your event and send an invite link out via WhatsApp or SMS.
+        As an event host, you can manage your event in one place and send a public invite link out via WhatsApp, SMS or email.
     </p>
+    <ul>
+        <li>
+            Free to use and no signup required
+        </li>
+        <li>
+            No personal details required
+        </li>
+        <li>
+            Calendar integration
+        </li>
+    </ul>
     <p>
-        To start give your event a name...
+        To start...
     </p>
     @volt
     <div>
@@ -25,7 +36,7 @@ $save = function () {
             <div class="grid">
                 <div class="col">
                     <label for="event-name" >
-                        Event name:
+                        What's the event?
                     </label>
                     <input type="text" name="name" wire:model="form.name">
                     @error('form.name') <span class="error" style="color: darkred">{{ $message }}</span> @enderror

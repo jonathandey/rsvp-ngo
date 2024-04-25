@@ -52,7 +52,7 @@ class Rsvp extends Form
         $this->message = "### You're going to " . $event->name ."!";
 
         if ($event->hasStartDayTime()) {
-            $this->message .= "\n\nDon't forget to [add it to your calender](" . route('event.ical', ['event' => $event->public_key]) . ").";
+            $this->message .= "\n\n**Don't forget to [add it to your calender](" . route('event.ical', ['event' => $event->public_key]) . ").**";
         }
 
 

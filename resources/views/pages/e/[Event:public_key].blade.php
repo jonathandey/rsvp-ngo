@@ -35,7 +35,7 @@ $notGoing = function () {
                 <h4 style="color: orangered;">This event was in the past and is now concluded.</h4>
             @elseif($event->hasStartDayTime())
                 <p>
-                    From <time datetime="{{ $event->startDateTime()->format('H:i') }}">{{ $event->startDateTime()->format('H:i') }}</time> on the <time datetime="{{ $event->startDateTime()->format('Y-m-d') }}">{{ $event->startDateTime()->format('jS M y') }}</time> for about <time datetime="PT{{ $event->durationInHours() }}H00M">{{ $event->durationInHours() }} hours</time>
+                    From <time datetime="{{ $event->startDateTime()->format('H:i') }}">{{ $event->startDateTime()->format('H:i') }}</time> on the <time datetime="{{ $event->startDateTime()->format('Y-m-d') }}">{{ $event->startDateTime()->format('jS M y') }}</time> <em>({{ $event->time_zone }})</em> for about <time datetime="PT{{ $event->durationInHours() }}H00M">{{ $event->durationInHours() }} hours</time>
                     &bull; <a href="{{ route('event.ical', ['event' => $event->public_key]) }}">Add to your Calendar</a>
                 </p>
             @endif

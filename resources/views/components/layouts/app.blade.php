@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/tippy.js@6.3.7/dist/tippy.min.css">
     @livewireStyles
     <style>
+        body {
+            max-width: 1024px;
+        }
         input[type="date"]:before,
         input[type="time"]:before{
             content: attr(placeholder) !important;

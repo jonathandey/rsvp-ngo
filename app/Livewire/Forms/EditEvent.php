@@ -27,6 +27,8 @@ class EditEvent extends Form
     #[Locked]
     public $eventId;
 
+    public $invitationText = '';
+
     public Event $event;
 
     public function store()
@@ -55,11 +57,23 @@ class EditEvent extends Form
 
         $this->setEvent($event);
 
+        $this->refreshInvitationText();
+
         $event->save();
     }
 
     public function setEvent(Event $event)
     {
         $this->event = $event;
+    }
+
+    public function refreshInvitationText()
+    {
+        $this->invitationText = 'You are invited to ' . $this->event->name;
+        $this->invitationText .= ($this->event->hasStartDayTime() ? ' on the ' . $this->event->start_day->format('jS \o\f F') . '.' : '');
+        $this->invitationText .= ($this->event->hasStartDayTime() ? ' The event starts from ' . $this->event->start_time->format('H:i') . ' and will end around ' . $this->event->endDateTime()->format('H:i') . '.' : '');
+
+        $this->invitationText .= $this->event->description ? "\n\n" . $this->event->description : "";
+        $this->invitationText .= "\n\nRSVP here: " . $this->event->getPublicUrl();
     }
 }

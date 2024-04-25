@@ -21,6 +21,8 @@ class CreateEvent extends Form
     {
         $this->validate(
             [
+                'name' => ['required', 'max:255', 'min:3'],
+                'timeZone' => ['required', 'timezone:all'],
                 'captcha' => ['required', Rule::turnstile()],
             ]
         );
