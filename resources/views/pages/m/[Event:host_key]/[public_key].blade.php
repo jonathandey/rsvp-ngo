@@ -149,7 +149,7 @@ $event = request()->route()->parameter('event');
                     </div>
                 </div>
                 <div class="col">
-                    <label>The Invitation</label>
+                    <label>Suggested invitation:</label>
                     <textarea id="invitation-text" wire:model="form.invitationText"></textarea>
                     <button class="copy-btn" data-clipboard-target="#invitation-text">Copy Invite</button>
                 </div>
