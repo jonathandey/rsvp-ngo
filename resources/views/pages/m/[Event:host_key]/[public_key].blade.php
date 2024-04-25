@@ -57,24 +57,6 @@ $event = request()->route()->parameter('event');
             $this->form->setEvent($event);
             $this->form->refreshInvitationText();
         },
-        'form.startDay' => function ($val) use ($update) {
-            $event = $update($this->event, 'start_day', $val);
-            $this->form->setEvent($event);
-            $this->form->refreshInvitationText();
-        },
-        'form.startTime' => function ($val) use ($update) {
-            $event = $update($this->event, 'start_time', $val);
-            $this->form->setEvent($event);
-            $this->form->refreshInvitationText();
-        },
-        'form.eventDuration' => function ($val) use ($update) {
-            $endDateTime = $this->event->calculateEndDateTime($val);
-            $this->event->end_day = $endDateTime->format('Y-m-d');
-            $this->event->end_time = $endDateTime->format('H:i');
-            $this->event->save();
-            $this->form->setEvent($this->event);
-            $this->form->refreshInvitationText();
-        },
     ]
 );
 
@@ -103,17 +85,17 @@ $event = request()->route()->parameter('event');
                         <div class="grid">
                             <div class="col">
                                 <label for="start-day">When is your event?</label>
-                                <input type="date" id="start-day" name="start_day" placeholder="Date" wire:model.blur="form.startDay" min="{{ now()->format('Y-m-d') }}" />
+                                <input type="date" id="start-day" name="start_day" placeholder="Date" wire:model="form.startDay" min="{{ now()->format('Y-m-d') }}" />
                                 @error('form.startDay') <span class="error" style="color: darkred">{{ $message }}</span> @enderror
                             </div>
                             <div class="col">
                                 <label for="start-time">When should people arrive form?</label>
-                                <input type="time" id="start-time" placeholder="Set a Time" wire:model.blur="form.startTime" name="start_time" />
+                                <input type="time" id="start-time" placeholder="Set a Time" wire:model="form.startTime" name="start_time" />
                                 @error('form.startTime') <span class="error" style="color: darkred">{{ $message }}</span> @enderror
                             </div>
                             <div class="col">
                                 <label for="event-duration">How many hours is it on for?</label>
-                                <input type="number" wire:model.blur="form.eventDuration" id="event-duration">
+                                <input type="number" wire:model="form.eventDuration" id="event-duration">
                                 @error('form.eventDuration') <span class="error" style="color: darkred">{{ $message }}</span> @enderror
                             </div>
                         </div>
