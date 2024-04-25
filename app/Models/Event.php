@@ -112,6 +112,10 @@ class Event extends Model
 
     public function durationInHours(): int
     {
+        if (! $this->end_day) {
+            return 0;
+        }
+
         return $this->startDateTime()->diffInHours($this->endDateTime());
     }
 
